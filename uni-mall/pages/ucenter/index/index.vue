@@ -7,7 +7,7 @@
 				<text class="login-text">新用户注册即可享专享大礼包</text>
 			</navigator>
 		</view>
-
+		<view class="gap"></view>
 		<view class="points">
 			<view class="point-item">
 				<text class="point-label">**</text>
@@ -26,9 +26,9 @@
 				<text class="point-text">优惠券</text>
 			</view>
 		</view>
-
+		<view class="gap"></view>
 		<view class="order-section">
-			<text class="section-title">租赁订单 平台组保</text>
+			<text class="section-title">平台服务</text>
 			<view class="order-menu">
 				<view class="order-item">
 					<navigator url="/pages/ucenter/order/order?status=1">
@@ -62,12 +62,62 @@
 				</view>
 			</view>
 		</view>
-
+		<view class="gap"></view>
 		<view class="service-section">
-			<text class="section-title">我的服务</text>
+			<text class="section-title">更多功能</text>
 			<!-- 可在这里添加其他服务 -->
 		</view>
-
+		<!-- <view class="user-menu">
+			<view class="item">
+				<navigator url="/pages/ucenter/order/order" class="a">
+					<text class="icon order"></text>
+					<text class="txt">我的订单</text>
+				</navigator>
+			</view>
+			<view class="item">
+				<navigator url="/pages/ucenter/coupon/coupon" class="a">
+					<text class="icon coupon"></text>
+					<text class="txt">优惠券</text>
+				</navigator>
+			</view>
+			<view class="item">
+				<navigator url="/pages/ucenter/collect/collect" class="a">
+					<text class="icon address"></text>
+					<text class="txt">我的收藏</text>
+				</navigator>
+			</view>
+			<view class="item">
+				<navigator url="/pages/ucenter/footprint/footprint" class="a">
+					<text class="icon security"></text>
+					<text class="txt">我的足迹</text>
+				</navigator>
+			</view>
+			<view class="item">
+				<navigator url="../address/address" class="a">
+					<text class="icon address"></text>
+					<text class="txt">地址管理</text>
+				</navigator>
+			</view>
+			<view class="item item-bottom">
+				<navigator url="/pages/ucenter/help/help" class="a">
+					<text class="icon help"></text>
+					<text class="txt">帮助中心</text>
+				</navigator>
+			</view>
+			<view class="item item-bottom">
+				<navigator url="/pages/ucenter/feedback/feedback" class="a">
+					<text class="icon feedback"></text>
+					<text class="txt">意见反馈</text>
+				</navigator>
+			</view>
+			<view class="item item-bottom" v-if="!hasMobile">
+				<navigator url="/pages/auth/mobile/mobile" class="a">
+					<text class="icon phone"></text>
+					<text class="txt">绑定手机</text>
+				</navigator>
+			</view>
+		</view> -->
+		<view class="gap"></view>
 		<!-- 退出登录按钮 -->
 		<view class="logout" v-if="userInfo.userName != '点击去登录'" @tap="exitLogin">退出登录</view>
 	</view>
@@ -164,7 +214,7 @@ export default {
                         uni.removeStorageSync('token');
                         uni.removeStorageSync('userInfo');
                         app.globalData.userInfo = {
-                            nickname: 'Hi,游客',
+                            nickname: '您好',
                             userName: '点击去登录',
                             avatar: 'https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/150547696d798c.png'
                         };
@@ -212,22 +262,30 @@ export default {
 }
 </script>
 <style scoped>
+
+
 .container {
 	padding: 20rpx;
 	background: #f4f4f4;
 }
 
+.gap {
+	height: 20rpx;
+}
+
 .profile {
 	text-align: center;
-	padding: 40rpx 0;
+	padding: 20rpx 10rpx;
 	background: #fff;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
 }
 
 .avatar {
 	width: 120rpx;
 	height: 120rpx;
 	border-radius: 50%;
-	margin-bottom: 20rpx;
+	margin: 0 0 0 -20rpx;
 }
 
 .nickname {
@@ -247,6 +305,8 @@ export default {
 	background: #fff;
 	padding: 20rpx 0;
 	margin-top: 10rpx;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
 }
 
 .point-item {
@@ -268,6 +328,8 @@ export default {
 	background: #fff;
 	margin-top: 10rpx;
 	padding: 20rpx;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
 }
 
 .section-title {
@@ -302,6 +364,105 @@ export default {
 	background: #fff;
 	margin-top: 10rpx;
 	padding: 20rpx;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
+}
+
+.user-menu {
+	width: 100%;
+	height: auto;
+	overflow: hidden;
+	background: #fff;
+	margin-top: 10rpx;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
+}
+
+.user-menu .item {
+	float: left;
+	width: 33.33333%;
+	height: 187.5rpx;
+	border-right: 1px solid rgba(0, 0, 0, .15);
+	border-bottom: 1px solid rgba(0, 0, 0, .15);
+	text-align: center;
+}
+
+.user-menu .item .a {
+	display: flex;
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.user-menu .item.no-border {
+	border-right: 0;
+}
+
+.user-menu .item.item-bottom {
+	border-bottom: none;
+}
+
+.user-menu .icon {
+	margin: 0 auto;
+	display: block;
+	height: 52.803rpx;
+	width: 52.803rpx;
+	margin-bottom: 16rpx;
+}
+
+.user-menu .icon.order {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -437.5rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.coupon {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -62.4997rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.gift {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -187.5rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.address {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 0 no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.security {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -500rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.kefu {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -312.5rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.help {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -250rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.feedback {
+	background: url(http://yanxuan.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/sprites/ucenter-sdf6a55ee56-f2c2b9c2f0.png) 0 -125rpx no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .icon.phone {
+	background: url(https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/15011540ebe21.png) no-repeat;
+	background-size: 52.803rpx;
+}
+
+.user-menu .txt {
+	display: block;
+	height: 24rpx;
+	width: 100%;
+	font-size: 24rpx;
+	color: #333;
 }
 
 .logout {
@@ -311,5 +472,9 @@ export default {
 	background: #fff;
 	color: #333;
 	font-size: 30rpx;
+	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
+	border-radius: 10rpx;
 }
+</style>
+
 </style>

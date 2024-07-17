@@ -3,7 +3,7 @@
 	export default {
 		globalData: {
 			userInfo: {
-        nickname: 'Hi,游客',
+        nickname: '您好',
 				userName: '点击去登录',
 				avatar: 'https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/150547696d798c.png'
 			},
