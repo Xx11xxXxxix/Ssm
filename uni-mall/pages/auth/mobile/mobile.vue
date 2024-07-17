@@ -302,7 +302,7 @@
   }
   
   .policy text {
-	font-size: 19rpx;
+	font-size: 23rpx;
 	margin: 0 2rpx;
   }
   

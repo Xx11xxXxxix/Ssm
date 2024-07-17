@@ -1,5 +1,12 @@
 <template>
 	<view class="container">
+    <view class="custom-nav-bar">
+      <view class="nav-left">
+        <image class="nav-logo" src="/static/images/logo.png"></image>
+       
+      </view>
+      <view class="nav-right"></view>
+    </view>
 		<swiper class="banner" indicator-dots="true" autoplay="true" interval="3000" duration="1000">
 			<swiper-item v-for="(item, index) in banner" :key="index">
 				<navigator v-if="item.link" :url="item.link">
@@ -715,4 +722,35 @@
   width: 70rpx;
   height: 70rpx;
 }
+/* 自定义导航栏样式 */
+.custom-nav-bar {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  background-color: #a5a5a5;
+  color: #000000;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.nav-left {
+  font-size: 42rpx;
+  font-weight: bold; 
+  color: #0000ff; 
+  font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif; 
+}
+
+.nav-right {
+  font-size: 42rpx;
+  color: #000000;
+  font-family: "Comic Sans MS", "Comic Sans", cursive; 
+}
+.nav-logo {
+  width:74rpx; 
+  height: 74rpx;
+  margin: 8rpx  1rpx -10rpx 311rpx;
+}
+
 </style>

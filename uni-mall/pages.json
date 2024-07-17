@@ -2,7 +2,7 @@
 	"pages": [{
 		"path": "pages/index/index",
 		"style": {
-			"navigationBarTitleText": "Bangtuitui",
+			"navigationStyle": "custom" ,// 使用自定义导航栏
 			"enablePullDownRefresh": true,
 			"onReachBottomDistance": 12
 		}

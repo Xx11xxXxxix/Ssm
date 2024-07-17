@@ -1,67 +1,71 @@
 <template>
 	<view class="container">
-		<scroll-view 
-			v-if="topicList.length > 0" 
-			class="topic-list" 
-			:scroll-y="true" 
-			:scroll-top="scrollTop">
-			<view class="top-row" v-if="topicList.length > 0">
-				<navigator :url="'../topicDetail/topicDetail?id='+topicList[0].id">
-					<view class="item-container">
-						<image class="top-img" :src="topicList[0].scenePicUrl"></image>
-						<view class="info">
-							<text class="title">{{ topicList[0].title }}</text>
-							<text class="price">{{ topicList[0].priceInfo }}元起</text>
-						</view>
-					</view>
-				</navigator>
+	  <scroll-view 
+		v-if="combinedList.length > 0" 
+		class="topic-list" 
+		:scroll-y="true" 
+		:scroll-top="scrollTop">
+		<view class="top-row" v-if="combinedList.length > 0">
+		  <navigator :url="'../topicDetail/topicDetail?id='+combinedList[0].id">
+			<view class="item-container">
+			  <image class="top-img" :src="combinedList[0].scenePicUrl"></image>
+			  <view class="info">
+				<text class="title">{{ combinedList[0].title }}</text>
+				<text class="price">{{ combinedList[0].priceInfo }}元起</text>
+			  </view>
 			</view>
-			<view class="vertical-row" v-if="topicList.length > 2">
-				<view class="vertical-item" v-for="(item, index) in topicList.slice(1, 3)" :key="index">
-					<navigator :url="'../topicDetail/topicDetail?id='+item.id">
-						<view class="item-container">
-							<image class="vertical-img" :src="item.scenePicUrl"></image>
-							<view class="info">
-								<text class="title">{{ item.title }}</text>
-								<text class="price">{{ item.priceInfo }}元起</text>
-							</view>
-						</view>
-					</navigator>
+		  </navigator>
+		</view>
+		<view class="vertical-row" v-if="combinedList.length > 2">
+		  <view class="vertical-item" v-for="(item, index) in combinedList.slice(1, 3)" :key="index">
+			<navigator :url="'../topicDetail/topicDetail?id='+item.id">
+			  <view class="item-container">
+				<image class="vertical-img" :src="item.scenePicUrl"></image>
+				<view class="info">
+				  <text class="title">{{ item.title }}</text>
+				  <text class="price">{{ item.priceInfo }}元起</text>
 				</view>
+			  </view>
+			</navigator>
+		  </view>
+		</view>
+		<view class="horizontal-section" v-if="combinedList.length > 3">
+		  <view class="title-row">
+			<text class="official-text">官方严选 超值二手</text>
+			<text class="new-tag">99新</text>
+		  </view>
+		  <view class="horizontal-items">
+			<view class="horizontal-item" v-for="(item, index) in combinedList.slice(3)" :key="index">
+			  <navigator :url="'../topicDetail/topicDetail?id='+item.id">
+				<view class="item-container">
+				  <image class="horizontal-img" :src="item.scenePicUrl"></image>
+				  <view class="info">
+					<text class="title">{{ item.title }}</text>
+					<text class="price">{{ item.priceInfo }}元起</text>
+				  </view>
+				</view>
+			  </navigator>
 			</view>
-			<view class="horizontal-section" v-if="topicList.length > 3">
-				<view class="title-row">
-					<text class="official-text">官方严选 超值二手</text>
-					<text class="new-tag">99新</text>
-				</view>
-				<view class="horizontal-items">
-					<view class="horizontal-item" v-for="(item, index) in topicList.slice(3)" :key="index">
-						<navigator :url="'../topicDetail/topicDetail?id='+item.id">
-							<view class="item-container">
-								<image class="horizontal-img" :src="item.scenePicUrl"></image>
-								<view class="info">
-									<text class="title">{{ item.title }}</text>
-									<text class="price">{{ item.priceInfo }}元起</text>
-								</view>
-							</view>
-						</navigator>
-					</view>
-				</view>
-			</view>
-		</scroll-view>
-		<tui-show-empty v-else text="暂无专题"></tui-show-empty>
+		  </view>
+		</view>
+	  </scroll-view>
+	  <tui-show-empty v-else text="暂无专题"></tui-show-empty>
 	</view>
-</template>
-  <script>
+  </template>
+ 
+ 
+ 
+ <script>
   const util = require("@/utils/util.js");
   const api = require('@/utils/api.js');
   
   export default {
 	  data() {
 		  return {
-	   topicList: [],
-      scrollTop: 0,
-      showPage: false
+			adList: [],
+			topicList: [],
+			scrollTop: 0,
+			showPage: false
 		  };
 	  },
 
@@ -78,13 +82,15 @@
       });
 
       util.request(api.TopicList, {
-        page: 1, // 获取第一页
-        size: 100 // 设置一个足够大的值，确保一次性加载所有数据
+        page: 1, 
+        size: 20 
       }).then(res => {
         if (res.errno === 0) {
           this.topicList = res.data.data;
           this.showPage = true;
           console.log("话题数据加载成功：", res.data);
+		  // 获取广告数据
+          this.getAds();
         } else {
           console.log("获取话题数据失败：", res.errmsg);
         }
@@ -93,8 +99,38 @@
         console.log("请求话题数据出错：", err);
         uni.hideToast();
       });
-   	 }
-	  },
+   	 },
+	// 广告api
+	  getAds: function() {
+      console.log("开始获取广告数据");
+      util.request({
+        url: 'https://211321219.com',
+        method: 'GET'
+      }).then(res => {
+        if (res.status === 200) {
+          this.adList = res.data.data;
+          console.log("广告数据加载成功：", res.data);
+        } else {
+          console.log("获取广告数据失败：", res.errmsg);
+        }
+      }).catch(err => {
+        console.log("请求广告数据出错：", err);
+      });
+    }
+	},
+	computed: {
+    combinedList() {
+      // 将广告数据插入到特定位置
+      let combined = [...this.topicList];
+      if (this.adList.length > 0) {
+        combined.splice(0, 0, this.adList[0]); // 第一个广告插入到第一个位置
+        if (this.adList.length > 1) {
+          combined.splice(2, 0, this.adList[1]); // 第二个广告插入到第三个位置
+        }
+      }
+      return combined;
+	}
+    },
 	  onLoad(options) {
 		  console.log("页面加载，初始化话题列表");
 		  this.getTopic();
@@ -117,7 +153,16 @@
   }
   
   .top-row,
-  .vertical-row,
+  .vertical-row{
+	background: transparent;
+    margin-bottom: 40rpx; /* 增加下方间距 */
+    padding: 50rpx;
+    box-sizing: border-box;
+  }
+
+  .vertical-item {
+    margin-bottom: 10rpx; /* 增加垂直间距 */
+	}
   .horizontal-section {
 	  background: transparent;
 	  margin-bottom: 20rpx;
