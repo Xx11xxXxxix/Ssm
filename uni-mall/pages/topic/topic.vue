@@ -1,19 +1,49 @@
 <template>
 	<view class="container">
-		<scroll-view v-if="topicList.length >0" class="topic-list" :scroll-y="true" :scroll-top="scrollTop">
-			<view class="row" v-for="(chunk, chunkIndex) in chunkedTopicList" :key="chunkIndex">
-				<navigator class="item" v-for="(item, index) in chunk" :key="index" :url="'../topicDetail/topicDetail?id='+item.id">
-					<image class="img" :src="item.scenePicUrl"></image>
+		<scroll-view v-if="topicList.length > 0" class="topic-list" :scroll-y="true" :scroll-top="scrollTop">
+			<view class="top-row" v-if="topicList.length > 0">
+				<navigator :url="'../topicDetail/topicDetail?id='+topicList[0].id">
+					<image class="top-img" :src="topicList[0].scenePicUrl"></image>
 					<view class="info">
-						<text class="title">{{item.title}}</text>
-						<text class="desc">{{item.subtitle}}</text>
-						<text class="price">{{item.priceInfo}}元起</text>
+						<text class="title">{{ topicList[0].title }}</text>
+						<text class="desc">{{ topicList[0].subtitle }}</text>
+						<text class="price">{{ topicList[0].priceInfo }}元起</text>
 					</view>
 				</navigator>
+			</view>top-img
+			<view class="vertical-row" v-if="topicList.length > 2">
+				<view class="vertical-item" v-for="(item, index) in topicList.slice(1, 3)" :key="index">
+					<navigator :url="'../topicDetail/topicDetail?id='+item.id">
+						<image class="vertical-img" :src="item.scenePicUrl"></image>
+						<view class="info">
+							<text class="title">{{ item.title }}</text>
+							<text class="desc">{{ item.subtitle }}</text>
+							<text class="price">{{ item.priceInfo }}元起</text>
+						</view>
+					</navigator>
+				</view>
+			</view>
+			<view class="horizontal-section" v-if="topicList.length > 3">
+				<view class="title-row">
+					<text class="official-text">官方严选 超值二手</text>
+					<text class="new-tag">99新</text>
+				</view>
+				<view class="horizontal-items">
+					<view class="horizontal-item" v-for="(item, index) in topicList.slice(3, 6)" :key="index">
+						<navigator :url="'../topicDetail/topicDetail?id='+item.id">
+							<image class="horizontal-img" :src="item.scenePicUrl"></image>
+							<view class="info">
+								<text class="title">{{ item.title }}</text>
+								<text class="desc">{{ item.subtitle }}</text>
+								<text class="price">{{ item.priceInfo }}元起</text>
+							</view>
+						</navigator>
+					</view>
+				</view>
 			</view>
 			<view class="page" v-if="showPage">
 				<view :class="'prev ' + (page <= 1 ? 'disabled' : '')" @tap="prevPage">上一页</view>
-				<view :class="'next ' + ((count / size) < page +1 ? 'disabled' : '')" @tap="nextPage">下一页</view>
+				<view :class="'next ' + ((count / size) < page + 1 ? 'disabled' : '')" @tap="nextPage">下一页</view>
 			</view>
 		</scroll-view>
 		<tui-show-empty v-else text="暂无专题"></tui-show-empty>
@@ -103,68 +133,66 @@ export default {
 </script>
 
 <style lang="scss">
-.page,
 .container {
 	width: 750rpx;
 	height: 100%;
 	overflow: hidden;
-	background:  #100b0b;
+	background: #100b0b;
 }
 
 .topic-list {
 	width: 750rpx;
 	height: 100%;
 	overflow: hidden;
-	background: #fff7ec;
+	background: linear-gradient(to bottom, url('@/static/images/bg.png') 0% 25%, #fff 25% 50%, url('@/static/images/bg1.png') 50% 75%, #fff 75% 100%), #fff;
+	background-size: 100% 25%;
 }
 
-.row {
-	display: flex;
-	width: 100%;
-}
-
-.topic-list .item {
-	width: 33.33%;
-	height: auto;
-	overflow: hidden;
+.top-row,
+.vertical-row,
+.horizontal-section {
 	background: #fff;
 	margin-bottom: 20rpx;
 	padding: 10rpx;
 	box-sizing: border-box;
 }
 
-.topic-list .img {
-	width: 100%;
-	height: 200rpx;
+.top-img {
+	width: 50%;
+	height: 400rpx;
+	object-fit: cover;
 }
 
-.topic-list .info {
+.vertical-img,
+.horizontal-img {
 	width: 100%;
-	height: auto;
-	overflow: hidden;
+	height: 200rpx;
+	object-fit: cover;
+}
+
+.info {
+	width: 100%;
 	text-align: center;
 	padding: 10rpx;
 }
 
-.topic-list .title {
+.title {
 	display: block;
 	width: 100%;
 	color: #333;
-	overflow: hidden;
 	font-size: 28rpx;
 	margin-top: 5rpx;
 }
 
-.topic-list .desc {
+.desc {
 	display: block;
 	width: 100%;
-	overflow: hidden;
 	color: #999;
 	font-size: 24rpx;
 	margin-top: 5rpx;
 }
 
-.topic-list .price {
+.price {
 	display: block;
 	width: 100%;
 	color: #b4282d;
@@ -172,28 +200,57 @@ export default {
 	margin-top: 5rpx;
 }
 
+.title-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20rpx;
+}
+
+.official-text {
+	font-size: 30rpx;
+	color: #333;
+}
+
+.new-tag {
+	font-size: 24rpx;
+	color: #b4282d;
+}
+
+.horizontal-items {
+	display: flex;
+	justify-content: space-between;
+}
+
+.horizontal-item {
+	width: 32%;
+	background: #fff;
+	padding: 10rpx;
+	box-sizing: border-box;
+}
+
 .page {
 	width: 750rpx;
 	height: 108rpx;
 	background: #fff;
 	margin-bottom: 20rpx;
+	display: flex;
+	justify-content: space-between;
 }
 
-.page view {
-	height: 108rpx;
+.page .prev,
+.page .next {
 	width: 50%;
-	float: left;
+	height: 108rpx;
 	font-size: 29rpx;
 	color: #333;
 	text-align: center;
 	line-height: 108rpx;
-}
-
-.page .prev {
-	border-right: 1px solid #D9D9D9;
+	cursor: pointer;
 }
 
 .page .disabled {
 	color: #ccc;
+	cursor: not-allowed;
 }
 </style>
