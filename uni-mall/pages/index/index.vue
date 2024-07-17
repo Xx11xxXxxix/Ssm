@@ -22,7 +22,7 @@
       <!-- 精选推荐 -->
 		<view class="a-section a-recommendation" v-if="topics.length > 0">
 			<view class="h">
-				<text class="title">精选推荐</text>
+				<text class="title">精选推荐1</text>
 			</view>
 
 			<view class="b">
