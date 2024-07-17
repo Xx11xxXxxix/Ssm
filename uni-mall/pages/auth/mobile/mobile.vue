@@ -12,11 +12,12 @@
 	  <view class="form-container">
 		<form @submit="bindLoginMobilecode">
 		  <view class="input-container">
-			<text class="input-icon">&#xe65b;</text> <!-- 图标 -->
+			<image :src="require('@/static/images/手机.png')" class="top-image-phone" />
 			<input type="digit" name="mobile" @input="bindInputMobile" placeholder="输入手机号" v-model="mobile" auto-focus />
 		  </view>
+		  <!-- 输入框短信 -->
 		  <view class="input-container">
-			<text class="input-icon">&#xe65c;</text> <!-- 图标 -->
+			<image :src="require('@/static/images/短信.png')" class="top-image-sms" />
 			<input type="digit" name="code" placeholder="四位验证码" />
 			<button type="button" class="get-code-button" @click="countDownPassCode" :disabled="disableGetMobileCode">{{ getCodeButtonText }}</button>
 		  </view>
@@ -34,7 +35,7 @@
 		  </view>
 		</view>
 	  </view>
-	</view>
+	</view>	
   </template>
   
   
@@ -154,159 +155,168 @@
   </script>
   
   
- 
-<style lang="scss">
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20rpx;
-  background-color: #ffffff;
-  height: 100vh;
-  box-sizing: border-box;
-  justify-content: center;
-}
-
-.header {
-  width: 100%;
-  margin: 269rpx  ;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20rpx;
-}
-.top-image-placeholder {
+  <style lang="scss">
+  .container {
 	display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.top-image {
-	width: 150rpx; /* 根据实际需求调整 */
-  height: 150rpx; /* 根据实际需求调整 */
-  object-fit: contain; /* 保持图片比例 */
-  image-rendering: crisp-edges; /* 优化显示效果 */
-}
-
-.title-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20rpx;
-}
-
-.title {
-  font-size: 36rpx;
-  font-weight: bold;
-  color: #333333;
-}
-
-.form-container {
-  width: 100%;
-  padding: 0 40rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: auto;
-  margin-bottom: auto;
-}
-
-.input-container {
-  height: 73rpx;
-  display: flex;
-  align-items: center;
-  border: 1rpx solid #805698;
-  border-radius: 50rpx;
-  margin:0 0 50rpx ;
-  padding: 20rpx;
-  background-color: #f9f9f9;
-  width: 100%;
-  position: relative;
-}
-
-.input-container input {
-  flex: 1;
-  border: none;
-  outline: none;
-  font-size: 28rpx;
-  background: none;
-  padding-left: 40rpx;
-}
-
-.input-icon {
-  position: absolute;
-  left: 20rpx;
-  font-size: 28rpx;
-  color: #999999;
-}
-
-.get-code-button {
-  font-size: 28rpx;
-  color: #FFC800;
-  border: none;
-  background: none;
-  cursor: pointer;
-padding-right: 10rpx;
-}
-
-.notice {
-  font-size: 24rpx;
-  color: #999999;
-  margin-bottom: 20rpx;
-  text-align: center;
-}
-
-.login-button-container {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.login-button {
-  width: 100%;
-  height: 80rpx;
-  font-size: 32rpx;
-  background-color: #805698;
-  border: none;
-  border-radius: 40rpx;
-  color: #fcf6ff;
-  cursor: pointer;
-}
-
-.login-button:disabled {
-  background-color: #ddd;
-  cursor: not-allowed;
-}
-
-.policy {
-  margin-top: 10rpx;
-  text-align: center;
-  font-size: 24rpx;
-  color: #888888;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.policy-text {
+	flex-direction: column;
+	align-items: center;
+	padding: 20rpx;
+	background-color: #ffffff;
+	height: 100vh;
+	box-sizing: border-box;
+	justify-content: center;
+  }
+  
+  .header {
+	width: 100%;
+	margin: 269rpx;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20rpx;
+  }
+  
+  .top-image-placeholder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+  }
+  
+  .top-image {
+	width: 150rpx;
+	height: 150rpx;
+	object-fit: contain;
+	image-rendering: crisp-edges;
+  }
+  
+  .top-image-phone,
+  .top-image-sms {
+	width: 40rpx;
+	height: 40rpx;
+  }
+  
+  .title-container {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20rpx;
+  }
+  
+  .title {
+	font-size: 36rpx;
+	font-weight: bold;
+	color: #333333;
+  }
+  
+  .form-container {
+	position: relative;
+	bottom: 202rpx;
+	width: 100%;
+	padding: 0 40rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: auto;
+	margin-bottom: auto;
+  }
+  
+  .input-container {
+	height: 73rpx;
+	display: flex;
+	align-items: center;
+	border: 1rpx solid #805698;
+	border-radius: 50rpx;
+	margin: 0 0 50rpx;
+	padding: 20rpx;
+	background-color: #f9f9f9;
+	width: 100%;
+	position: relative;
+  }
+  
+  .input-container input {
+	flex: 1;
+	border: none;
+	outline: none;
+	font-size: 28rpx;
+	background: none;
+	padding-left: 40rpx;
+  }
+  
+  .input-icon {
+	position: absolute;
+	left: 20rpx;
+	font-size: 28rpx;
+	color: #999999;
+  }
+  
+  .get-code-button {
+	font-size: 28rpx;
+	color: #ffc800;
+	border: none;
+	background: none;
+	cursor: pointer;
+	padding-right: 10rpx;
+  }
+  
+  .notice {
+	font-size: 24rpx;
+	color: #999999;
+	margin-bottom: 20rpx;
+	text-align: center;
+  }
+  
+  .login-button-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+  }
+  
+  .login-button {
+	width: 100%;
+	height: 80rpx;
+	font-size: 32rpx;
+	background-color: #805698;
+	border: none;
+	border-radius: 40rpx;
+	color: #fcf6ff;
+	cursor: pointer;
+  }
+  
+  .login-button:disabled {
+	background-color: #ddd;
+	cursor: not-allowed;
+  }
+  
+  .policy {
+	margin-top: 10rpx;
+	text-align: center;
+	font-size: 24rpx;
+	color: #888888;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+  }
+  
+  .policy-text {
 	font-size: 22rpx;
-  display: flex;
-  align-items: center;
-}
-
-.policy text {
+	display: flex;
+	align-items: center;
+  }
+  
+  .policy text {
 	font-size: 19rpx;
-
-  margin: 0 2rpx;
-}
-
-.policy .link {
-  color: #FFC800;
-  text-decoration: underline;
-  cursor: pointer;
-}
-.checkbox {
-  margin-right: 10rpx;
-  transform: scale(0.8); /* 缩小复选框 */
-  transform-origin: left; /* 保持左对齐 */
-}
-</style>
+	margin: 0 2rpx;
+  }
+  
+  .policy .link {
+	color: #ffc800;
+	text-decoration: underline;
+	cursor: pointer;
+  }
+  
+  .checkbox {
+	margin-right: 10rpx;
+	transform: scale(0.8);
+	transform-origin: left;
+  }
+  </style>
+  
