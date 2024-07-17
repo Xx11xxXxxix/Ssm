@@ -135,143 +135,114 @@
   height: 100%;
   overflow: hidden;
   background: 
-    url('@/static/images/bg.png') no-repeat center top,
-    url('@/static/images/bg1.png') no-repeat center,
-    url('@/static/images/bg2.png') no-repeat center;
-  background-size: 
-    100% 10%, 
-    100% 10, 
-    100% 3%, 
-    100% 1%;
-  background-position: 
-    top, 
-    calc(4.0rem + 2rem) top, 
-    calc(4.0rem + 2rem + 5.0rem + 2rem) top, 
-    calc(4.0rem + 2rem + 5.0rem + 2rem + 3.0rem + 2rem) top;
+    url('@/static/images/爱采购.png') no-repeat center top;
+	background-size: 100% 100%, 100% 5.0rem, 100% 3.0rem;
+
 }
-  
-  .topic-list {
-	width: 750rpx;
-	height: 100%;
-	overflow: hidden;
-	background: transparent; /* 背景设为透明，继承 .container 的背景 */
-  }
-  
-  .top-row,
-  .vertical-row,
-  .horizontal-section {
-	background: transparent;
-	margin-bottom: 20rpx;
-	padding: 50rpx;
-	box-sizing: border-box;
-  }
-  
-  .item-container {
-	width: 100%;
-	background: transparent;
-	position: relative;
-  }
-  
-  .top-img {
-	width: 100%;
-	height: 1%rpx;
-	object-fit: cover;
-  }
-  
-  .vertical-img,
-  .horizontal-img {
-	width: 100%;
-	height: 200rpx;
-	object-fit: cover;
-  }
-  
-  .info {
-	width: 100%;
-	text-align: center;
-	padding: 10rpx;
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-  }
-  
-  .title {
-	display: block;
-	width: 100%;
-	color: #fff;
-	font-size: 28rpx;
-	margin-top: 5rpx;
-  }
-  
-  .desc {
-	display: block;
-	width: 100%;
-	color: #ddd;
-	font-size: 24rpx;
-	margin-top: 5rpx;
-  }
-  
-  .price {
-	display: block;
-	width: 100%;
-	color: #ffcc00;
-	font-size: 24rpx;
-	margin-top: 5rpx;
-  }
-  
-  .title-row {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 20rpx;
-  }
-  
-  .official-text {
-	font-size: 30rpx;
-	color: #333;
-  }
-  
-  .new-tag {
-	font-size: 24rpx;
-	color: #b4282d;
-  }
-  
-  .horizontal-items {
-	display: flex;
-	justify-content: space-between;
-  }
-  
-  .horizontal-item {
-	width: 32%;
-	background: transparent;
-	padding: 10rpx;
-	box-sizing: border-box;
-  }
-  
-  .page {
-	width: 750rpx;
-	height: 108rpx;
-	background: #fff;
-	margin-bottom: 20rpx;
-	display: flex;
-	justify-content: space-between;
-  }
-  
-  .page .prev,
-  .page .next {
-	width: 50%;
-	height: 108rpx;
-	font-size: 29rpx;
-	color: #333;
-	text-align: center;
-	line-height: 108rpx;
-	cursor: pointer;
-  }
-  
-  .page .disabled {
-	color: #ccc;
-	cursor: not-allowed;
-  }
-  </style>
+
+.topic-list {
+  width: 750rpx;
+  height: 100%;
+  overflow: hidden;
+  background: transparent; /* 背景设为透明，继承 .container 的背景 */
+}
+
+.top-row,
+.vertical-row,
+.horizontal-section {
+  background: transparent;
+  margin-bottom: 20rpx;
+  padding: 50rpx;
+  box-sizing: border-box;
+}
+
+.item-container {
+  width: 100%;
+  background: transparent;
+  position: relative;
+  border-radius: 15rpx; /* 添加圆角边框 */
+  overflow: hidden; /* 确保子元素的圆角边框 */
+}
+
+.top-img,
+.vertical-img,
+.horizontal-img {
+  width: 100%;
+  height: 200rpx;
+  object-fit: cover;
+  border-radius: 15rpx; /* 图片也加上圆角边框 */
+}
+
+.info {
+  width: 100%;
+  text-align: center;
+  padding: 10rpx;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-bottom-left-radius: 15rpx; /* 信息区域底部圆角 */
+  border-bottom-right-radius: 15rpx; /* 信息区域底部圆角 */
+}
+
+.title {
+  display: block;
+  width: 100%;
+  color: #fff;
+  font-size: 28rpx;
+  margin-top: 5rpx;
+}
+
+.desc {
+  display: block;
+  width: 100%;
+  color: #ddd;
+  font-size: 24rpx;
+  margin-top: 5rpx;
+}
+
+.price {
+  display: block;
+  width: 100%;
+  color: #ffcc00;
+  font-size: 24rpx;
+  margin-top: 5rpx;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.official-text {
+  font-size: 30rpx;
+  color: #333;
+}
+
+.new-tag {
+  font-size: 24rpx;
+  color: #b4282d;
+}
+
+.horizontal-items {
+  display: flex;
+  justify-content: space-between;
+}
+
+.horizontal-item {
+  width: 32%;
+  background: transparent;
+  padding: 10rpx;
+  box-sizing: border-box;
+}
+
+.page .disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+</style>
+
   
