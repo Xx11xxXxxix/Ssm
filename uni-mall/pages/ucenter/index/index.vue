@@ -285,7 +285,7 @@ export default {
 	width: 120rpx;
 	height: 120rpx;
 	border-radius: 50%;
-	margin: 0 0 0 -20rpx;
+	margin: 0 0 0 -180rpx;
 }
 
 .nickname {
