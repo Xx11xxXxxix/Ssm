@@ -98,7 +98,6 @@
 							  console.log('验证码倒计时结束');
 						  } else {
 							  that.getCodeButtonText = `${i}秒`;
-							  console.log(`倒计时 ${i} 秒`);
 						  }
 					  }, 1000);
 				  } else {

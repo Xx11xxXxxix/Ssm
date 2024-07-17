@@ -57,7 +57,7 @@
 				<view class="order-item">
 					<navigator url="/pages/ucenter/order/order?status=0">
 						<text class="icon order"></text>
-						<text class="txt">退出登录</text>
+						<text class="txt">版本信息</text>
 					</navigator>
 				</view>
 			</view>
@@ -67,61 +67,12 @@
 			<text class="section-title">更多功能</text>
 			<!-- 可在这里添加其他服务 -->
 		</view>
-		<!-- <view class="user-menu">
-			<view class="item">
-				<navigator url="/pages/ucenter/order/order" class="a">
-					<text class="icon order"></text>
-					<text class="txt">我的订单</text>
-				</navigator>
-			</view>
-			<view class="item">
-				<navigator url="/pages/ucenter/coupon/coupon" class="a">
-					<text class="icon coupon"></text>
-					<text class="txt">优惠券</text>
-				</navigator>
-			</view>
-			<view class="item">
-				<navigator url="/pages/ucenter/collect/collect" class="a">
-					<text class="icon address"></text>
-					<text class="txt">我的收藏</text>
-				</navigator>
-			</view>
-			<view class="item">
-				<navigator url="/pages/ucenter/footprint/footprint" class="a">
-					<text class="icon security"></text>
-					<text class="txt">我的足迹</text>
-				</navigator>
-			</view>
-			<view class="item">
-				<navigator url="../address/address" class="a">
-					<text class="icon address"></text>
-					<text class="txt">地址管理</text>
-				</navigator>
-			</view>
-			<view class="item item-bottom">
-				<navigator url="/pages/ucenter/help/help" class="a">
-					<text class="icon help"></text>
-					<text class="txt">帮助中心</text>
-				</navigator>
-			</view>
-			<view class="item item-bottom">
-				<navigator url="/pages/ucenter/feedback/feedback" class="a">
-					<text class="icon feedback"></text>
-					<text class="txt">意见反馈</text>
-				</navigator>
-			</view>
-			<view class="item item-bottom" v-if="!hasMobile">
-				<navigator url="/pages/auth/mobile/mobile" class="a">
-					<text class="icon phone"></text>
-					<text class="txt">绑定手机</text>
-				</navigator>
-			</view>
-		</view> -->
 		<view class="gap"></view>
 		<!-- 退出登录按钮 -->
 		<view class="logout" v-if="userInfo.userName != '点击去登录'" @tap="exitLogin">退出登录</view>
 	</view>
 </template>
+
 
 <script>
 const util = require("@/utils/util.js")
@@ -131,77 +82,14 @@ export default {
     data() {
         return {
             canIUseGetUserProfile: false,
-            userInfo: {},
-            hasMobile: ''
+            userInfo: {
+                userName: '点击去登录',
+                avatar: '/static/images/avatar.webp' // 引入webp格式图片
+			},
+			hasMobile: ''
         }
     },
     methods: {
-        loginByWeixin: function(userInfo) {
-            console.log('\微信登录');
-            let code = null;
-            return new Promise(function(resolve, reject) {
-                util.login().then((res) => {
-                    code = res.code;
-                    console.log('微信登录成功，code:', code);
-                    return userInfo;
-                }).then((userInfo) => {
-                    console.log('登录远程服务器，提交用户信息:', userInfo);
-                    util.request(api.AuthLoginByWeixin, {
-                        code: code,
-                        userInfo: userInfo
-                    }, 'POST', 'application/json').then(res => {
-                        if (res.errno === 0) {
-                            console.log('远程登录成功，用户信息已保存:', res.data.userInfo, 'Token:', res.data.token);
-                            uni.setStorageSync('userInfo', res.data.userInfo);
-                            uni.setStorageSync('token', res.data.token);
-                            console.log('当前页面用户信息:', res.data.userInfo);
-                            console.log('当前全局用户信息:', app.globalData.userInfo);
-                            resolve(res);
-                        } else {
-                            console.log('登录失败:', res.errmsg);
-                            util.toast(res.errmsg);
-                            reject(res);
-                        }
-                    }).catch((err) => {
-                        console.log('请求登录接口失败:', err);
-                        reject(err);
-                    });
-                }).catch((err) => {
-                    console.log('登录过程中出现错误:', err);
-                    reject(err);
-                })
-            });
-        },
-        getUserProfile() {
-            let that = this;
-            console.log('调用 getUserProfile 获取用户信息');
-            wx.getUserProfile({
-                desc: '用于完善会员资料',
-                success: (resp) => {
-                    console.log('获取用户信息成功:', resp);
-                    that.loginByWeixin(resp).then(res => {
-                        that.userInfo = res.data.userInfo;
-                        app.globalData.userInfo = res.data.userInfo;
-                        app.globalData.token = res.data.token;
-                        console.log('用户信息和token已更新到全局:', app.globalData.userInfo, app.globalData.token);
-                    }).catch((err) => {
-                        console.log('登录或更新用户信息失败:', err);
-                    });
-                }
-            })
-        },
-        bindGetUserInfo(e) {
-            let that = this;
-            console.log('按钮触发获取用户信息');
-            that.loginByWeixin(e.detail).then(res => {
-                that.userInfo = res.data.userInfo;
-                app.globalData.userInfo = res.data.userInfo;
-                app.globalData.token = res.data.token;
-                console.log('用户信息和token已绑定:', that.userInfo, app.globalData.token);
-            }).catch((err) => {
-                console.log('绑定用户信息时出错:', err);
-            });
-        },
         exitLogin: function() {
             console.log('触发退出登录');
             uni.showModal({
@@ -216,7 +104,7 @@ export default {
                         app.globalData.userInfo = {
                             nickname: '您好',
                             userName: '点击去登录',
-                            avatar: 'https://platform-wxmall.oss-cn-beijing.aliyuncs.com/upload/20180727/150547696d798c.png'
+                            avatar: '/static/images/avatar.webp'
                         };
                         console.log('用户信息已清除，已设置为默认游客信息');
                         util.toast('退出成功');
@@ -236,6 +124,7 @@ export default {
                 console.log('从本地存储获取用户信息和token:', userInfo, token);
                 app.globalData.userInfo = userInfo;
                 app.globalData.token = token;
+                that.userInfo = userInfo;  // 确保userInfo被正确赋值
             } else {
                 console.log('本地无用户信息，执行登录');
                 uni.login({
@@ -247,7 +136,6 @@ export default {
                     }
                 });
             }
-            that.userInfo = app.globalData.userInfo;
             console.log('当前页面的用户信息:', that.userInfo);
             console.log('当前全局的用户信息:', app.globalData.userInfo);
         },
@@ -261,9 +149,18 @@ export default {
     }
 }
 </script>
+
+
+
+
+
+
+
+
+
+
+
 <style scoped>
-
-
 .container {
 	padding: 20rpx;
 	background: #f4f4f4;
@@ -285,7 +182,7 @@ export default {
 	width: 120rpx;
 	height: 120rpx;
 	border-radius: 50%;
-	margin: 0 0 0 -180rpx;
+	margin: 0 0 0 -250rpx;
 }
 
 .nickname {
@@ -294,13 +191,11 @@ export default {
 }
 
 .login-text {
-    
 	font-size: 24rpx;
 	color: #f56c6c;
 	position: relative;
 	left: 102rpx;
     bottom:23rpx;
-    
 }
 
 .points {
@@ -480,4 +375,3 @@ export default {
 	border-radius: 10rpx;
 }
 </style>
-

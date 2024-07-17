@@ -1,0 +1,22 @@
+{
+    "folders": [
+        {
+            "path": "."
+        }
+    ],
+    "settings": {
+        "search.exclude": {
+            "**/node_modules": true,
+            "**/dist": true
+        },
+        "files.exclude": {
+            "**/.git": true,
+            "**/.DS_Store": true
+        },
+        "search.useIgnoreFiles": false,
+        "search.useGlobalIgnoreFiles": false,
+        "search.include": [
+            "D:/Git/Ssm/Ssm/uni-mall/**"
+        ]
+    }
+}
