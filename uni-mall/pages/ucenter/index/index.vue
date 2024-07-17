@@ -275,7 +275,7 @@ export default {
 
 .profile {
 	text-align: center;
-	padding: 20rpx 10rpx;
+	padding: 21rpx 10rpx;
 	background: #fff;
 	box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
 	border-radius: 10rpx;
@@ -294,9 +294,13 @@ export default {
 }
 
 .login-text {
+    
 	font-size: 24rpx;
 	color: #f56c6c;
-	margin-top: 10rpx;
+	position: relative;
+	left: 102rpx;
+    bottom:23rpx;
+    
 }
 
 .points {
@@ -477,4 +481,3 @@ export default {
 }
 </style>
 
-</style>
